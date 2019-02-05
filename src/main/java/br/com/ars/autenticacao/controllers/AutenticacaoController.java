@@ -12,4 +12,9 @@ public class AutenticacaoController {
 	public ResponseEntity<String> teste() {
 		return new ResponseEntity<String>("This is a String", HttpStatus.OK);
 	}
+	
+	@GetMapping("v1/nome")
+	public ResponseEntity<String> nome(){
+		return new ResponseEntity<String>("Vanessa", HttpStatus.OK);
+	}
 }
