@@ -10,6 +10,12 @@ public class AutenticacaoController {
 
 	@GetMapping("test")
 	public ResponseEntity<String> teste() {
+		
+		Integer a = null;
+		
+		
+		a.byteValue();
+		
 		return new ResponseEntity<String>("This is a String", HttpStatus.OK);
 	}
 	
