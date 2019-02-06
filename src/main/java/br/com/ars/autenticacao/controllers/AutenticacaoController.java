@@ -8,15 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AutenticacaoController {
 
-	@GetMapping("test")
+	@GetMapping("v1/teste")
 	public ResponseEntity<String> teste() {
-		
-		Integer a = null;
-		
-		
-		a.byteValue();
-		
-		return new ResponseEntity<String>("This is a String", HttpStatus.OK);
+		return new ResponseEntity<String>("Funcionou", HttpStatus.OK);
 	}
 	
 	@GetMapping("v1/nome")
