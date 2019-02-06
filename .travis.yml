@@ -11,3 +11,8 @@ script:
   # other script steps might be done before running the actual analysis
   #- sonar-scanner
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "c937a2d5-457b-4c68-a1bb-df9227f0c5dc"
