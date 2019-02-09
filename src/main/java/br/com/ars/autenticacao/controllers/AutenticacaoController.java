@@ -12,21 +12,21 @@ import org.apache.logging.log4j.LogManager;
 @RestController
 public class AutenticacaoController {
 
-	private static Logger LOGGER = LogManager.getLogger(AutenticacaoController.class);
+	private Logger logger = LogManager.getLogger(AutenticacaoController.class);
 
 	@GetMapping("v1/teste/{teste}")
 	public ResponseEntity<String> teste(@RequestParam String teste) {
-		return new ResponseEntity<String>("Funcionou", HttpStatus.OK);
+		return new ResponseEntity<>("Funcionou", HttpStatus.OK);
 	}
 
 	@GetMapping("v1/nome")
 	public ResponseEntity<Pessoa> nome() {
 
-		LOGGER.info("ACESSO AO METODO GET NOME");
+		logger.info("ACESSO AO METODO GET NOME");
 		
 		Pessoa pessoa = new Pessoa("Adilson", "Silva");
 
-		return new ResponseEntity<Pessoa>(pessoa, HttpStatus.OK);
+		return new ResponseEntity<>(pessoa, HttpStatus.OK);
 	}
 
 	public class Pessoa {
