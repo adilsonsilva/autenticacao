@@ -24,28 +24,11 @@ branches:
   only:
   - master
 
-env:
-  global:
-    - VERSION=7.2 VARIANT=slim
-
-before_script:
-  - env | sort
-  - IMAGE_NAME=adilsonsilva86/autenticacao
-  - IMAGE_FULL_VERSION="${IMAGE_NAME}
-  - IMAGE_LATEST_VERSION="${IMAGE_NAME}:latest"
-
-script:
-  - docker build -t "${IMAGE_LATEST_VERSION}" .
-  - docker tag "${IMAGE_NAME}" "${IMAGE_FULL_VERSION}"
-
-after_script:
-  - docker images
-
 before_deploy:
   - echo "adilson.ro.silva@gmail.com" | docker login --username "Adi361671" --password-stdin
 
 deploy:
   provider: script
-  script: docker push "${IMAGE_LATEST_VERSION}" && docker push "${IMAGE_FULL_VERSION}"
+  script: docker push "adilsonsilva86/autenticacao" && docker push "adilsonsilva86/autenticacao"
   on:
     branch: master
