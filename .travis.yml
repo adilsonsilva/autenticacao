@@ -6,7 +6,7 @@ addons:
   sonarcloud:
     organization: "adilsonsilva-github" # the key of the org you chose at step #3
     token:
-      secure: "cd9f2b854966de4ae5fa861264cc4dc0d7abfa63" # encrypted value of your token
+      secure: "$SONAR_KEY" # encrypted value of your token
 script:
   # other script steps might be done before running the actual analysis
   #- sonar-scanner
@@ -22,7 +22,7 @@ before_install:
   - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   # login to docker registries (dockerhub + heroku)
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - echo "c937a2d5-457b-4c68-a1bb-df9227f0c5dc" | docker login -u "adilson.ro.silva@gmail.com" --password-stdin registry.heroku.com
+  - echo "$HEROKU_PASSWORD" | docker login -u "$HEROKU_USER" --password-stdin registry.heroku.com
 
 script:
   # build docker images
