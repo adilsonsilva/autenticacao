@@ -25,7 +25,7 @@ branches:
   - master
 
 script:
-  - docker build -t adilsonsilva86/autenticacao
+  - docker build -t "adilsonsilva86/autenticacao"
 
 after_script:
   - docker images
@@ -35,6 +35,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: docker push adilsonsilva86/autenticacao && docker push adilsonsilva86/autenticacao
+  script: docker push "adilsonsilva86/autenticacao" && docker push "adilsonsilva86/autenticacao"
   on:
     branch: master
