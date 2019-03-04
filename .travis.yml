@@ -24,13 +24,7 @@ before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - echo "c937a2d5-457b-4c68-a1bb-df9227f0c5dc" | docker login -u "adilson.ro.silva@gmail.com" --password-stdin registry.heroku.com
 
-install:
-  # install deps
-  - yarn install
-
 script:
-  - yarn test
-  - yarn build
   # build docker images
   - docker build -t adilsonsilva86/autenticacao .
   - docker tag adilsonsilva86/autenticacao registry.heroku.com/$HEROKU_APP_NAME
