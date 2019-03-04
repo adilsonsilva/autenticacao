@@ -25,7 +25,7 @@ branches:
   - master
 
 before_deploy:
-  - echo "adilsonsilva86" | docker login --username "Adi361671" --password-stdin
+  - echo "Adi361671" | docker login --username "adilson.ro.silva@gmail.com" --password-stdin
 
 deploy:
   provider: script
