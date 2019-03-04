@@ -27,14 +27,14 @@ before_install:
 script:
   # build docker images
   - docker build -t adilsonsilva86/autenticacao .
-  - docker tag adilsonsilva86/autenticacao registry.heroku.com/$HEROKU_APP_NAME
+  - docker tag adilsonsilva86/autenticacao registry.heroku.com/$HEROKU_APP_NAME/web
 
 deploy:
   provider: script
   script: 
     # push to dockerhub & heroku
     docker push adilsonsilva86/autenticacao;
-    docker push registry.heroku.com/$HEROKU_APP_NAME;
+    docker push registry.heroku.com/$HEROKU_APP_NAME/web;
     heroku container:release web --app $HEROKU_APP_NAME
   on:
     branch: master
