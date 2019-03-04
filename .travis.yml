@@ -29,6 +29,7 @@ before_deploy:
 
 deploy:
   provider: script
-  script: docker push "adilsonsilva86/autenticacao" && docker push "adilsonsilva86/autenticacao"
+  script: docker push adilsonsilva86/autenticacao
+#"adilsonsilva86/autenticacao" && docker push "adilsonsilva86/autenticacao"
   on:
     branch: master
