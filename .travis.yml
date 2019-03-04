@@ -12,40 +12,35 @@ script:
   #- sonar-scanner
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
-deploy:
-  provider: heroku
-  api_key:
-    secure: "c937a2d5-457b-4c68-a1bb-df9227f0c5dc"
+#-- nova configuração docker e heroku
 
 services:
   - docker
 
-branches:
-  only:
-  - master
+before_install:
+  # install heroku CLI
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  # login to docker registries (dockerhub + heroku)
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "c937a2d5-457b-4c68-a1bb-df9227f0c5dc" | docker login -u "adilson.ro.silva@gmail.com" --password-stdin registry.heroku.com
 
-env:
-  global:
-    - VERSION=1.1 VARIANT=slim
-
-before_script:
-  - env | sort
-  - IMAGE_NAME=adilsonsilva86/autenticacao
-  - IMAGE_FULL_VERSION="${IMAGE_NAME}:${VERSION}-${VARIANT}"
-  - IMAGE_LATEST_VERSION="${IMAGE_NAME}:latest"
+install:
+  # install deps
+  - yarn install
 
 script:
-  - docker build -t "${IMAGE_LATEST_VERSION}" .
-  - docker tag "${IMAGE_NAME}" "${IMAGE_FULL_VERSION}"
-
-after_script:
-  - docker images
-
-before_deploy:
-  - echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+  - yarn test
+  - yarn build
+  # build docker images
+  - docker build -t adilsonsilva86/autenticacao .
+  - docker tag adilsonsilva86/autenticacao registry.heroku.com/$HEROKU_APP_NAME/web
 
 deploy:
   provider: script
-  script: docker push "${IMAGE_LATEST_VERSION}" && docker push "${IMAGE_FULL_VERSION}"
+  script: 
+    # push to dockerhub & heroku
+    docker push adilsonsilva86/autenticacao;
+    docker push registry.heroku.com/$HEROKU_APP_NAME/web;
+    heroku container:release web --app $HEROKU_APP_NAME
   on:
     branch: master
