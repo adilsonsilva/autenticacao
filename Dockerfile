@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-alpine
 MAINTAINER Adilson
 LABEL version="1.0"
-LABEL description="Micro-serviço Autentocacao." 
+LABEL description="Micro-serviço Autenticacao." 
 VOLUME /tmp
 CMD ["/bin/sh"]
 ARG JAR_FILE
