@@ -12,10 +12,11 @@
 	<artifactId>autenticacao</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>autenticacao</name>
-	<description>Demo project for Spring Boot</description>
+	<description>MS de autenticação de usuario</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<docker.image.prefix>adilsonsilva86</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -67,7 +68,17 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.9</version>
+				<configuration>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+					<buildArgs>
+						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>
