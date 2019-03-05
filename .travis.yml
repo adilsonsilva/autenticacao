@@ -28,7 +28,9 @@ script:
   # build docker images
   - docker build -t adilsonsilva86/autenticacao .
   - docker tag adilsonsilva86/autenticacao registry.heroku.com/$HEROKU_APP_NAME/web
-  - docker run -p 8080:8080 -t adilsonsilva86/autenticacao
+
+after_script:
+  - docker images
 
 deploy:
   provider: script
