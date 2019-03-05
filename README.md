@@ -16,3 +16,7 @@ Logj42
 
 Spring Data
 
+Travis CI
+
+Sonar Clould
+
