@@ -1,59 +1,42 @@
 package br.com.ars.autenticacao.controllers;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import br.com.ars.autenticacao.model.entitys.Usuario;
+import br.com.ars.autenticacao.model.repository.UsuarioRepository;
 
 @RestController
 public class AutenticacaoController {
 
 	private Logger logger = LogManager.getLogger(AutenticacaoController.class);
 
-	@GetMapping("v1/teste/{teste}")
-	public ResponseEntity<String> teste(@RequestParam String teste) {
-		return new ResponseEntity<>("Funcionou", HttpStatus.OK);
-	}
-
-	@GetMapping("v1/nome")
-	public ResponseEntity<Pessoa> nome() {
-
-		logger.info("ACESSO AO METODO GET NOME");
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@GetMapping("v1/usuarios")
+	public ResponseEntity<List<Usuario>> teste() {
 		
-		Pessoa pessoa = new Pessoa("Adilson", "Silva");
-
-		return new ResponseEntity<>(pessoa, HttpStatus.OK);
-	}
-
-	public class Pessoa {
-		private String nome;
-		private String sobreNome;
-
-		public Pessoa(String nome, String sobreNome) {
-			super();
-			this.nome = nome;
-			this.sobreNome = sobreNome;
-		}
-
-		public String getNome() {
-			return nome;
-		}
-
-		public void setNome(String nome) {
-			this.nome = nome;
-		}
-
-		public String getSobreNome() {
-			return sobreNome;
-		}
-
-		public void setSobreNome(String sobreNome) {
-			this.sobreNome = sobreNome;
-		}
-
+		Usuario u = new Usuario();
+		u.setAtivo(Boolean.TRUE);
+		u.setDataCadastro(LocalDateTime.now());
+		u.setDataExpiracao(LocalDateTime.of(2020, 03, 05, 23, 59, 00));
+		u.setEmail("adilson.ro.silva@gmail.com");
+		u.setNome("Adilson Rodrigues da Silva");
+		u.setSenha("adilson");
+		
+		usuarioRepository.save(u);
+		
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		
+		return new ResponseEntity<>(usuarios, HttpStatus.OK);
 	}
 }
