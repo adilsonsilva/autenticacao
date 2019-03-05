@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<docker.image.prefix>adilsonsilva86</docker.image.prefix>
+		<spring.profile>prod</spring.profile>
 	</properties>
 
 	<dependencies>
